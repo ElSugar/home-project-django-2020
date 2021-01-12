@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Update Post{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+{% if user.id == post.author.id %}
+<br>
+<div class="d-flex justify-content-center">
+  <h2>Edit Your Post</h2>
+</div>
+
+<br>
+
+<div class="form-group">
+  <form method="POST">
+    <a href="{% url 'article-detail' post.pk %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+    <button class="btn btn-sm btn-outline-secondary">Save</button>
+    <br><br>
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    
+  </form>
+</div>
+{% else %}
+<p>You're not allowed.</p>
+{% endif %}
+{% else %}
+<p>You're not allowed.</p>
+{% endif %}
+
+{% endblock %}

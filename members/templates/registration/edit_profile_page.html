@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %} Edit Profile {% endblock %}
+{% block content %}
+
+
+
+<br>
+{% if user.is_authenticated %}
+{% if user.id == profile.user.id %}
+<div class="d-flex justify-content-center">
+  <h2>Edit Profile</h2>
+</div>
+
+<br>
+<div class="form-group">
+  <form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <a href="{% url 'home' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+  <button class="btn btn-sm btn-outline-secondary">Save</button>
+  </form>
+</div>
+
+{% else %}
+<p>You're not allowed</p>
+{% endif %}
+
+{% else %}
+<p>You're not allowed</p>
+{% endif %}
+
+{% endblock %}

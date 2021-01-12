@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} Sign up {% endblock %}
+{% block content %}
+
+
+
+<br>
+<div class="d-flex justify-content-center">
+  <h2>Sign up</h2>
+</div>
+
+<br>
+<div class="form-group">
+  <form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div class="d-flex justify-content-center">
+    <a href="{% url 'home' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+    <button class="btn btn-sm btn-outline-secondary">Submit</button>
+  </div>
+
+  </form>
+</div>
+
+
+{% endblock %}

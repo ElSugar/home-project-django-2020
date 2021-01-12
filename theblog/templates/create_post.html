@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %} Create Post {% endblock %}
+{% block content %}
+
+
+
+<br>
+{% if user.is_authenticated %}
+<div class="d-flex justify-content-center">
+  <h2>Create a New Post</h2>
+</div>
+
+<br>
+<div class="form-group">
+  <form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.media }}
+  {{ form.as_p }}
+  <a href="{% url 'home' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+  <button class="btn btn-sm btn-outline-secondary">Create</button>
+  </form>
+</div>
+
+<script>
+  var name = "{{ user.id }}";
+  document.getElementById("elder").value = name;
+</script>
+
+{% else %}
+<p>You're not allowed</p>
+{% endif %}
+
+{% endblock %}

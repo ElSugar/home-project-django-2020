@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'home' %}" class="btn btn-sm btn-outline-secondary">Main page</a>
+<br>
+<br>
+{% if user_posts %}
+<ul style="list-style-type:none;">
+  {% for post in user_posts %}
+    <li>
+        <div class="card">
+          <div class="card-header">
+            <a href="{% url 'article-detail' post.pk %}" class="text-decoration-none">
+              {{ post.title }}
+            </a>
+            <a href="{% url 'category' post.category|slugify %}">
+              <small><span class="badge badge-pill badge-dark" style="color:white; background-color: #d9adad;">{{ post.category }}</span></small>
+            </a>
+            <br/>
+            <small>
+              <a href="{% url 'show-profile-page' post.author.profile.id %}" class="text-decoration-none">{{ post.author.first_name }} {{ post.author.last_name }}</a>, {{ post.date }}
+            </small>
+            {% if user.is_authenticated %}
+            {% if user.id == post.author.id %}
+            <small><a href="{% url 'update-post' post.pk %}" class="text-decoration-none">Edit</a></small>
+            <small><a href="{% url 'delete-post' post.pk %}" class="text-decoration-none">Delete</a></small>
+            {% endif %}
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              {{ post.snippet }}
+            </p>
+          </div>
+        </div>
+    </li>
+    <br>
+  {% endfor %}
+</ul>
+{% else %}
+<p>This page doesn't exist.</p>
+{% endif %}
+
+{% endblock %}
